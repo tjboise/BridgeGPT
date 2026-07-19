@@ -40,7 +40,7 @@ Here are some examples to get you started:
 
 ## Web App
 
-The live demo is available at: **[bridgegpt.streamlit.app](https://bridgegpt.streamlit.app)**
+The live demo is available at: **[bridgegpt.streamlit.app](https://bridgegpt-b6sypfddyaavyt7nevycav.streamlit.app/)**
 
 Upload a bridge image and ask questions such as:
 - *"Can you simply describe the figure?"*
