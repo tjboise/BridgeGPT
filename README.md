@@ -13,7 +13,9 @@ BridgeGPT uses an **agentic few-shot pipeline**:
    - **SegFormer-v3** (MiT-B4, 768px + TTA) — detects rust/corrosion
 4. The VLM synthesizes the CNN outputs to produce a final answer with a segmentation overlay
 
-## Supported Question Types
+## Popular Questions
+
+Here are some examples to get you started:
 
 | Type | Example |
 |------|---------|
