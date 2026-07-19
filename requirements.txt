@@ -1,0 +1,13 @@
+streamlit==1.59.2
+torch==2.11.0
+torchvision==0.26.0
+transformers==5.10.1
+google-generativeai==0.8.6
+huggingface_hub==1.17.0
+numpy==2.4.4
+opencv-python==4.13.0.92
+Pillow
+openai==2.45.0
+pandas==3.0.3
+openpyxl==3.1.5
+timm

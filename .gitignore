@@ -1,0 +1,25 @@
+# API keys
+api_key.txt
+api_key_openai.txt
+
+# Model weights (hosted on HuggingFace)
+*.pth
+*.pt
+*.bin
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Data / results (too large)
+vlm_eval_results/
+vlm_eval_results-42/
+gt_dataset_seed44/
+VOCdevkit/
+model_data/
+
+# Misc
+.DS_Store
+*.log
