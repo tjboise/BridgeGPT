@@ -11,3 +11,4 @@ openai==2.45.0
 pandas==3.0.3
 openpyxl==3.1.5
 timm
+scipy
