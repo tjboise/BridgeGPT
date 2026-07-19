@@ -5,7 +5,7 @@ transformers==5.10.1
 google-generativeai==0.8.6
 huggingface_hub==1.17.0
 numpy==2.4.4
-opencv-python==4.13.0.92
+opencv-python-headless
 Pillow
 openai==2.45.0
 pandas==3.0.3
