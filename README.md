@@ -79,18 +79,6 @@ GOOGLE_API_KEY = "..."   # Gemini API key
 HF_TOKEN = "..."         # Hugging Face token (for private model weights)
 ```
 
-## Citation
-
-If you use BridgeGPT in your research, please cite:
-
-```
-@misc{bridgegpt2025,
-  title   = {BridgeGPT: Agentic Vision-Language Model for Bridge Inspection},
-  author  = {Zhang, Tianjie and others},
-  year    = {2025},
-  school  = {Rutgers University}
-}
-```
 
 ## Affiliation
 
