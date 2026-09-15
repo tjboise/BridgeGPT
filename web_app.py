@@ -285,6 +285,19 @@ def multi_color_overlay(image_pil, plan, executor):
                     return s["id"]
         return select_sid
 
+    def _mask_involves_rust(mask_id):
+        """True if mask_id is an intersect/subtract whose other input is a rust select."""
+        step = graph.get(mask_id, {})
+        if step.get("tool") not in ("intersect", "subtract"):
+            return False
+        args = step.get("args", {})
+        for parent_id in (args.get("mask_a"), args.get("mask_b")):
+            parent = graph.get(parent_id, {})
+            if (parent.get("tool") == "select" and
+                    parent.get("args", {}).get("class_name", "").lower() == "rust"):
+                return True
+        return False
+
     painted_any = False
     seen_cls = set()
     for cls, sids in cls_to_sids.items():
@@ -292,8 +305,11 @@ def multi_color_overlay(image_pil, plan, executor):
             continue
         color = ELEMENT_COLORS[cls]
         combined = None
+        use_rust_color = False
         for sid in sids:
             mid = _best_mask_id(sid)
+            if _mask_involves_rust(mid):
+                use_rust_color = True
             mask = executor.results.get(mid)
             if not isinstance(mask, np.ndarray):
                 mask = executor.results.get(sid)
@@ -301,8 +317,10 @@ def multi_color_overlay(image_pil, plan, executor):
                 binary = (mask > 0).astype(np.uint8)
                 combined = binary if combined is None else np.logical_or(combined, binary).astype(np.uint8)
         if combined is not None and combined.sum() > 0:
-            img = _apply_one_layer(img, combined, color)
-            legend.append((cls, color))
+            paint_color = ELEMENT_COLORS["rust"] if use_rust_color else color
+            label = f"rust on {cls}" if use_rust_color else cls
+            img = _apply_one_layer(img, combined, paint_color)
+            legend.append((label, paint_color))
             seen_cls.add(cls)
             painted_any = True
 
@@ -443,10 +461,40 @@ aashto_pdf = load_aashto_pdf()
 
 col1, col2 = st.columns([1, 1.8])
 
+SAMPLE_IMAGES = [
+    ("img/samples/102.jpg",  "Sample 1"),
+    ("img/samples/114.jpg",  "Sample 2"),
+    ("img/samples/129.jpg",  "Sample 3"),
+    ("img/samples/157.jpg",  "Sample 4"),
+    ("img/samples/210.jpg",  "Sample 5"),
+]
+
 with col1:
     up_file = st.file_uploader("Upload Bridge Photo", type=["jpg", "png", "jpeg"])
+
+    # Sample image picker
+    st.markdown("<small>Or try a sample image:</small>", unsafe_allow_html=True)
+    sample_cols = st.columns(len(SAMPLE_IMAGES))
+    selected_sample = st.session_state.get("selected_sample")
+    for i, (path, label) in enumerate(SAMPLE_IMAGES):
+        with sample_cols[i]:
+            if os.path.exists(path):
+                st.image(path, use_container_width=True)
+                if st.button(label, key=f"sample_{i}", use_container_width=True):
+                    st.session_state["selected_sample"] = path
+                    st.session_state["history"] = []
+                    st.session_state["last_query"] = None
+                    st.rerun()
+
+    # Determine active image: uploaded file takes priority over sample
+    img_pil = None
     if up_file:
         img_pil = Image.open(up_file).convert("RGB")
+        st.session_state["selected_sample"] = None
+    elif selected_sample and os.path.exists(selected_sample):
+        img_pil = Image.open(selected_sample).convert("RGB")
+
+    if img_pil is not None:
         st.image(img_pil, use_container_width=True)
 
 with col2:
@@ -498,7 +546,7 @@ with col2:
     user_query = st.chat_input("Ask about the bridge...")
     final_query = selected_query if selected_query else user_query
 
-    if up_file and final_query:
+    if img_pil is not None and final_query:
         last = st.session_state.get("last_query")
         if final_query != last:
             if (not st.session_state["history"] or
