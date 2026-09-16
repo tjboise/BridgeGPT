@@ -479,8 +479,8 @@ with col1:
     for i, (path, label) in enumerate(SAMPLE_IMAGES):
         with sample_cols[i]:
             if os.path.exists(path):
-                st.image(path, use_container_width=True)
-                if st.button(label, key=f"sample_{i}", use_container_width=True):
+                st.image(path, width='stretch')
+                if st.button(label, key=f"sample_{i}", width='stretch'):
                     st.session_state["selected_sample"] = path
                     st.session_state["history"] = []
                     st.session_state["last_query"] = None
@@ -495,7 +495,7 @@ with col1:
         img_pil = Image.open(selected_sample).convert("RGB")
 
     if img_pil is not None:
-        st.image(img_pil, use_container_width=True)
+        st.image(img_pil, width='stretch')
 
 with col2:
     if "history" not in st.session_state:
@@ -521,7 +521,7 @@ with col2:
                         if msg.get("legend"):
                             render_legend(msg["legend"])
                     with i_col:
-                        st.image(msg["img"], use_container_width=True)
+                        st.image(msg["img"], width='stretch')
                 else:
                     st.markdown(msg["content"])
             else:
@@ -540,7 +540,7 @@ with col2:
     ]
     selected_query = None
     for i, q in enumerate(questions):
-        if q_cols[i % 3].button(q, use_container_width=True, key=f"q_{i}"):
+        if q_cols[i % 3].button(q, width='stretch', key=f"q_{i}"):
             selected_query = q
 
     user_query = st.chat_input("Ask about the bridge...")
@@ -600,7 +600,7 @@ with col2:
                         if legend_items:
                             render_legend(legend_items)
                     with i_col:
-                        st.image(result_img_np, use_container_width=True)
+                        st.image(result_img_np, width='stretch')
                 else:
                     st.markdown(reply)
 
