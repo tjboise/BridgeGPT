@@ -461,12 +461,13 @@ aashto_pdf = load_aashto_pdf()
 
 col1, col2 = st.columns([1, 1.8])
 
+_APP_DIR = os.path.dirname(os.path.abspath(__file__))
 SAMPLE_IMAGES = [
-    ("img/samples/102.jpg",  "Sample 1"),
-    ("img/samples/114.jpg",  "Sample 2"),
-    ("img/samples/129.jpg",  "Sample 3"),
-    ("img/samples/157.jpg",  "Sample 4"),
-    ("img/samples/210.jpg",  "Sample 5"),
+    (os.path.join(_APP_DIR, "img/samples/102.jpg"),  "Sample 1"),
+    (os.path.join(_APP_DIR, "img/samples/114.jpg"),  "Sample 2"),
+    (os.path.join(_APP_DIR, "img/samples/129.jpg"),  "Sample 3"),
+    (os.path.join(_APP_DIR, "img/samples/157.jpg"),  "Sample 4"),
+    (os.path.join(_APP_DIR, "img/samples/210.jpg"),  "Sample 5"),
 ]
 
 with col1:
