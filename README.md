@@ -4,7 +4,7 @@
 
 ## Live Demo
 
-**[bridgegpt.streamlit.app](https://bridgegpt-b6sypfddyaavyt7nevycav.streamlit.app/)**
+**[bridgegpt-rutgers.streamlit.app](https://bridgegpt-rutgers.streamlit.app/)**
 
 Upload a bridge photo and ask questions in plain English. The app returns a segmentation overlay, a color legend, a professional condition assessment, and a collapsible reasoning trace.
 
