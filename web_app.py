@@ -479,7 +479,7 @@ with col1:
     for i, (path, label) in enumerate(SAMPLE_IMAGES):
         with sample_cols[i]:
             if os.path.exists(path):
-                st.image(path, width='stretch')
+                st.image(path, use_container_width=True)
                 if st.button(label, key=f"sample_{i}", width='stretch'):
                     st.session_state["selected_sample"] = path
                     st.session_state["history"] = []
