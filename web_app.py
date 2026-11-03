@@ -13,9 +13,10 @@ from huggingface_hub import hf_hub_download
 # ==========================================
 # 1. 页面配置 & 风格
 # ==========================================
+import base64
 _LOGO_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "img/logo_1.png")
 with open(_LOGO_PATH, "rb") as _f:
-    BRIDGEGPT_LOGO = _f.read()
+    BRIDGEGPT_LOGO_B64 = base64.b64encode(_f.read()).decode()
 RUTGERS_LOGO = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Rutgers_Scarlet_Knights_logo.svg/1200px-Rutgers_Scarlet_Knights_logo.svg.png"
 
 st.set_page_config(
@@ -455,7 +456,7 @@ Respond without prefaces like "Sure" or "Based on". Be concise and evidence-base
 # ==========================================
 # 8. UI
 # ==========================================
-st.image(BRIDGEGPT_LOGO, width=300)
+st.markdown(f'<img src="data:image/png;base64,{BRIDGEGPT_LOGO_B64}" width="300">', unsafe_allow_html=True)
 
 cnn       = load_cnn()
 vlm       = load_vlm()
