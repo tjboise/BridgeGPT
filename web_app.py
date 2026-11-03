@@ -1,4 +1,5 @@
 import os
+import base64
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 import streamlit as st
@@ -13,7 +14,6 @@ from huggingface_hub import hf_hub_download
 # ==========================================
 # 1. 页面配置 & 风格
 # ==========================================
-import base64
 _LOGO_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "img/logo_1.png")
 try:
     with open(_LOGO_PATH, "rb") as _f:
@@ -481,7 +481,7 @@ with col1:
         img_pil = Image.open(selected_sample).convert("RGB")
 
     if img_pil is not None:
-        st.image(img_pil, use_container_width=True)
+        st.image(img_pil, width="stretch")
 
 with col2:
     if "history" not in st.session_state:
@@ -507,7 +507,7 @@ with col2:
                         if msg.get("legend"):
                             render_legend(msg["legend"])
                     with i_col:
-                        st.image(msg["img"], use_container_width=True)
+                        st.image(msg["img"], width="stretch")
                 else:
                     st.markdown(msg["content"])
             else:
@@ -586,7 +586,7 @@ with col2:
                         if legend_items:
                             render_legend(legend_items)
                     with i_col:
-                        st.image(result_img_np, use_container_width=True)
+                        st.image(result_img_np, width="stretch")
                 else:
                     st.markdown(reply)
 
