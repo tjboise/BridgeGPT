@@ -15,8 +15,11 @@ from huggingface_hub import hf_hub_download
 # ==========================================
 import base64
 _LOGO_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "img/logo_1.png")
-with open(_LOGO_PATH, "rb") as _f:
-    BRIDGEGPT_LOGO_B64 = base64.b64encode(_f.read()).decode()
+try:
+    with open(_LOGO_PATH, "rb") as _f:
+        BRIDGEGPT_LOGO_B64 = base64.b64encode(_f.read()).decode()
+except Exception:
+    BRIDGEGPT_LOGO_B64 = ""
 RUTGERS_LOGO = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Rutgers_Scarlet_Knights_logo.svg/1200px-Rutgers_Scarlet_Knights_logo.svg.png"
 
 st.set_page_config(
@@ -463,7 +466,8 @@ aashto_pdf = load_aashto_pdf()
 col1, col2 = st.columns([1, 1.8])
 
 with col1:
-    st.markdown(f'<img src="data:image/png;base64,{BRIDGEGPT_LOGO_B64}" width="260">', unsafe_allow_html=True)
+    if BRIDGEGPT_LOGO_B64:
+        st.markdown(f'<img src="data:image/png;base64,{BRIDGEGPT_LOGO_B64}" width="260">', unsafe_allow_html=True)
     up_file = st.file_uploader("Upload Bridge Photo", type=["jpg", "png", "jpeg"])
 
     selected_sample = st.session_state.get("selected_sample")
