@@ -487,7 +487,7 @@ with col2:
     if "history" not in st.session_state:
         st.session_state["history"] = []
 
-    chat_box = st.container(height=500)
+    chat_box = st.container(height=350)
 
     for msg in st.session_state["history"]:
         with chat_box.chat_message(msg["role"]):
