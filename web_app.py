@@ -461,31 +461,10 @@ aashto_pdf = load_aashto_pdf()
 
 col1, col2 = st.columns([1, 1.8])
 
-_APP_DIR = os.path.dirname(os.path.abspath(__file__))
-SAMPLE_IMAGES = [
-    (os.path.join(_APP_DIR, "img/samples/102.jpg"),  "Sample 1"),
-    (os.path.join(_APP_DIR, "img/samples/114.jpg"),  "Sample 2"),
-    (os.path.join(_APP_DIR, "img/samples/129.jpg"),  "Sample 3"),
-    (os.path.join(_APP_DIR, "img/samples/157.jpg"),  "Sample 4"),
-    (os.path.join(_APP_DIR, "img/samples/210.jpg"),  "Sample 5"),
-]
-
 with col1:
     up_file = st.file_uploader("Upload Bridge Photo", type=["jpg", "png", "jpeg"])
 
-    # Sample image picker
-    st.markdown("<small>Or try a sample image:</small>", unsafe_allow_html=True)
-    sample_cols = st.columns(len(SAMPLE_IMAGES))
     selected_sample = st.session_state.get("selected_sample")
-    for i, (path, label) in enumerate(SAMPLE_IMAGES):
-        with sample_cols[i]:
-            if os.path.exists(path):
-                st.image(path, use_container_width=True)
-                if st.button(label, key=f"sample_{i}", width='stretch'):
-                    st.session_state["selected_sample"] = path
-                    st.session_state["history"] = []
-                    st.session_state["last_query"] = None
-                    st.rerun()
 
     # Determine active image: uploaded file takes priority over sample
     img_pil = None
