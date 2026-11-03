@@ -456,8 +456,6 @@ Respond without prefaces like "Sure" or "Based on". Be concise and evidence-base
 # ==========================================
 # 8. UI
 # ==========================================
-st.markdown(f'<img src="data:image/png;base64,{BRIDGEGPT_LOGO_B64}" width="300">', unsafe_allow_html=True)
-
 cnn       = load_cnn()
 vlm       = load_vlm()
 aashto_pdf = load_aashto_pdf()
@@ -465,6 +463,7 @@ aashto_pdf = load_aashto_pdf()
 col1, col2 = st.columns([1, 1.8])
 
 with col1:
+    st.markdown(f'<img src="data:image/png;base64,{BRIDGEGPT_LOGO_B64}" width="260">', unsafe_allow_html=True)
     up_file = st.file_uploader("Upload Bridge Photo", type=["jpg", "png", "jpeg"])
 
     selected_sample = st.session_state.get("selected_sample")
