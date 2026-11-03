@@ -13,7 +13,9 @@ from huggingface_hub import hf_hub_download
 # ==========================================
 # 1. 页面配置 & 风格
 # ==========================================
-BRIDGEGPT_LOGO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "img/logo_1.png")
+_LOGO_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "img/logo_1.png")
+with open(_LOGO_PATH, "rb") as _f:
+    BRIDGEGPT_LOGO = _f.read()
 RUTGERS_LOGO = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Rutgers_Scarlet_Knights_logo.svg/1200px-Rutgers_Scarlet_Knights_logo.svg.png"
 
 st.set_page_config(
